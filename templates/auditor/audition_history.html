@@ -1,0 +1,55 @@
+{% extends 'auditor/auditorbase.html' %}
+{% block content %}
+{% load widget_tweaks %}
+{%load static%}
+<head>
+    <style>
+        .label {
+     color: white;
+     padding: 8px;
+   }
+   
+   .success {background-color: #4CAF50;} /* Green */
+   .info {background-color: #2196F3;} /* Blue */
+   .warning {background-color: #ff9800;} /* Orange */
+   .danger {background-color: #f44336;} /* Red */
+   .other {background-color: #e7e7e7; color: black;} /* Gray */
+    </style>
+   </head>
+<br><br>
+<div class="container">
+    <H4 class="text-center">История Аудита</H4><br>
+    <table class="table table-light table-hover table-bordered table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Тип аудита</th>
+                <th scope="col">Оценка</th>
+                <th scope="col">Пояснение</th>
+                <th scope="col">Дата</th>
+                <th scope="col">Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in auditions %}
+            <tr>
+                <td>{{t.id_doc}}</td>
+                <td>{{t.docsgroup}}</td>
+                <td>{{t.unit}}</td>
+                <td> {{t.info}}</td>
+                <td>{{t.date}}</td>
+                {% if t.status == 'Approved' %}
+                <td><span class="label success">Одобрено</span></td>
+                
+                {% elif t.status == 'Rejected' %}
+                <td><span class="label danger">Отклонено</span></td>
+                {% else %}
+                <td><span style="color: white;margin-left: 0px;" class="label info">В ожидании</span></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

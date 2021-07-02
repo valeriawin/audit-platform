@@ -1,0 +1,64 @@
+{% extends 'auditor/auditorbase.html' %}
+{% block content %}
+<br><br>
+<div class="container">
+    <div class="row">
+
+      <div class="col-sm-3">
+        <div class="card bg-light">
+          <div class="card-body">
+              <div class="docs">
+                <i class="fas fa-sync-alt xyz"></i>
+              </div><br>
+              <div>
+                Общее кол-во <br>
+                  {{requestmade}}
+              </div>                            
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="card bg-light">
+            <div class="card-body">
+                <div class="docs">
+                  <i class="fas fa-sync xyz"></i>
+                </div><br>
+                <div>
+                    Необработанные <br>
+                    {{requestpending}}
+                </div>                            
+            </div>
+          </div>
+      </div>
+
+      <div class="col-sm-3">
+          <div class="card bg-light">
+              <div class="card-body">
+                  <div class="docs">
+                    <i class="fas fa-check-circle xyz"></i>
+                  </div><br>
+                  <div>
+                       Одобренные<br>
+                      {{requestapproved}}
+                  </div>                            
+              </div>
+            </div>
+      </div>
+      <div class="col-sm-3">
+          <div class="card bg-light">
+              <div class="card-body">
+                  <div class="docs">
+                    <i class="fas fa-times-circle xyz"></i>
+                  </div><br>
+                  <div>
+                       Отклоненные <br>
+                      {{requestrejected}}
+                  </div>                            
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,124 @@
+{% extends 'client/clientbase.html' %}
+{% block content %}
+<head>
+    <style>
+    .xyz{     
+        color: rgb(255, 221, 45); 
+        font-size: 3ex;   
+    }
+    </style>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+</head>
+
+<input type="file" id="file">
+  <button>Обновить график Unit</button>
+
+  <script type="text/javascript">
+    document.querySelector('button').addEventListener('click', function() {
+      let file = document.getElementById('file').files[0];
+      let reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = function() {
+        var sp = reader.result.split(' ');
+        var ints = [];
+        for(var i=0; i<sp.length; i++){
+            ints.push(parseInt(sp[i], 10));
+        }
+    
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+          var my_data = [
+            ['Опрос', 'Оценка'],
+            [' ', 0]
+          ];
+          for (var i=0; i<ints.length; i++){
+            var n = i+1;
+            my_data.push([n.toString(), ints[i]]);
+          }
+          var data = google.visualization.arrayToDataTable(my_data);
+          
+
+          var options = {
+            title: 'Оценки аудитов',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+          chart.draw(data, options);
+        }
+      }
+        reader.onerror = function() {
+          console.log(reader.error);
+      }
+    })
+</script>
+
+<div id="curve_chart" style="height: 350px"></div>
+<br>
+
+<div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="card bg-light">
+          <div class="card-body">
+              <div class="docs">
+                <i class="fas fa-sync-alt xyz"></i>
+              </div><br>
+              <div>
+                Общее кол-во <br>
+                  {{requestmade}}
+              </div>                            
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="card bg-light">
+            <div class="card-body">
+                <div class="docs">
+                  <i class="fas fa-sync xyz"></i>
+                </div><br>
+                <div>
+                    Необработанные <br>
+                    {{requestpending}}
+                </div>                            
+            </div>
+          </div>
+      </div>
+
+      <div class="col-sm-3">
+          <div class="card bg-light">
+              <div class="card-body">
+                  <div class="docs">
+                    <i class="fas fa-check-circle xyz"></i>
+                  </div><br>
+                  <div>
+                       Одобренные<br>
+                      {{requestapproved}}
+                  </div>                            
+              </div>
+            </div>
+      </div>
+      <div class="col-sm-3">
+          <div class="card bg-light">
+              <div class="card-body">
+                  <div class="docs">
+                    <i class="fas fa-times-circle xyz"></i>
+                  </div><br>
+                  <div>
+                       Отклоненные <br>
+                      {{requestrejected}}
+                  </div>                            
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

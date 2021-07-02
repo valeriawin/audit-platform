@@ -1,0 +1,58 @@
+{% extends 'client/clientbase.html' %}
+{% block content %}
+{% load widget_tweaks %}
+{%load static%}
+
+<head>
+    <style>
+        .label {
+     color: white;
+     padding: 8px;
+   }
+   
+   .success {background-color: #4CAF50;} /* Green */
+   .info {background-color: #2196F3;} /* Blue */
+   .warning {background-color: #ff9800;} /* Orange */
+   .danger {background-color: #f44336;} /* Red */
+   .other {background-color: #e7e7e7; color: black;} /* Gray */
+    </style>
+   </head>
+<br><br>
+<div class="container">
+    <H4 class="text-center">Мои запросы</H4><br>
+    <table class="table table-hover table-bordered table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID запроса</th>
+                <th scope="col">Документов</th>
+                <th scope="col">Тип аудита</th>
+                <th scope="col">Документы</th>
+                <th scope="col">Комментарий</th>
+                <th scope="col">Дата</th>
+                <th scope="col">Статус</th> 
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in docs_request %}
+            <tr>
+                <td> {{t.client_id}}</td>
+                <td>{{t.client_num}}</td>
+                <td>{{t.docsgroup}}</td>
+                <td><a href={{t.audit_file}}>ссылка<i></i></a></td>
+                <td>{{t.reason}}</td>
+                <td>{{t.date}}</td>
+                {% if t.status == 'Approved' %}
+                <td><span class="label success">Одобрено</span></td>
+                
+                {% elif t.status == 'Rejected' %}
+                <td><span class="label danger">Отклонено</span></td>
+                {% else %}
+                <td><span style="color: white;margin-left: 0px;" class="label info">В ожидании</span></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

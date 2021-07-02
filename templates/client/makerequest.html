@@ -1,0 +1,86 @@
+{% extends 'client/clientbase.html' %}
+{% block content %}
+{% load widget_tweaks %}
+{%load static%}
+<head>
+        <!-- Font special for pages-->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+        <!-- Main CSS-->
+        <link href="{% static "css/main.css" %}"rel="stylesheet" media="all">
+</head>
+
+<div class="page-wrapper p-t-45 p-b-50" style="background-color: #000000;">
+    <div class="wrapper wrapper--w790">
+        <div style="margin-left: 70px;" class="card">
+            <div class="card-heading">
+                <h2 class="title">СДЕЛАТЬ ЗАПРОС</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" autocomplete="off" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-row">
+                        <div class="name">ID операции</div>
+                        <div class="value">
+                            <div class="input-group">
+                                {% render_field request_form.client_id|attr:'required:true'  class="input--style-5"  %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Тип аудита</div>
+                        <div class="value">
+                            <div class="input-group">
+                                <div class="rs-select2 js-select-simple select--no-search">
+                                    <select name="docsgroup">
+                                        <option disabled="disabled" selected="selected">Выберите из вариантов</option>
+                                        <option>Финансовый</option>
+                                        <option>Управленческий</option>
+                                        <option>Хоз. деятельности</option>
+                                        <option>Специальный</option>
+                                    </select>
+                                    <div class="select-dropdown"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Кол-во документов</div>
+                        <div class="value">
+                            <div class="input-group">
+                                {% render_field request_form.client_num|attr:'required:true'  class="input--style-5"  %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="name">Ссылка на документы</div>
+                        <div class="value">
+                            <div class="input-group">
+                                {% render_field request_form.audit_file|attr:'required:true'  class="input--style-5"  %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="name">Комментарий</div>
+                        <div class="value">
+                            <div class="input-group">
+                                {% render_field request_form.reason|attr:'required:true'  class="input--style-5"  %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button class="btn btn--radius-2 btn-danger" type="submit">ОТПРАВИТЬ</button>
+                    </div>
+                </form>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

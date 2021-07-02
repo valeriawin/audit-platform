@@ -1,0 +1,41 @@
+{% extends 'docs/adminbase.html' %}
+{% block content %}
+{% load widget_tweaks %}
+{%load static%}
+<br><br>
+<div class="container">
+    <H4 class="text-center">КЛИЕНТЫ</H4><br>
+    <table class="table table-light table-hover table-bordered table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Фото</th>
+                <th scope="col">ФИО</th>
+                <th scope="col">Компания</th>
+                <th scope="col">Должность</th>
+                <th scope="col">Адрес</th>
+                <th scope="col">Телефон</th>
+                <th class="text-right">Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in clients %}
+            <tr>
+                <td> <img src="{% static t.profile_pic.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
+                <td> {{t.get_name}}</td>
+                <td>{{t.company}}</td>
+                <td>{{t.job}}</td>
+                <td>{{t.address}}</td>           
+                <td>+375{{t.mobile}}</td>
+                
+                <td class="text-right">
+                    <button class="btn btn-primary badge-pill" style="width: 150px;"><a  style="text-decoration: none;color: white;" href="{% url 'update-client' t.id  %}">Редактировать </a></button>
+                    <button class="btn btn-danger badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="{% url 'delete-client' t.id  %}">Удалить</a> </button>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,157 @@
+{% extends 'docs/adminbase.html' %}
+{% block content %}
+
+<input type="file" id="file">
+  <button>Обновить диаграмму Stock</button>
+
+  <script type="text/javascript">
+    document.querySelector('button').addEventListener('click', function() {
+      let file = document.getElementById('file').files[0];
+      let reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = function() {
+        var sp = reader.result.split(' ');
+        var ints = [];
+        for(var i=0; i<4; i++){
+            ints.push(parseInt(sp[i], 10));
+        }
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+            ['Тип аудита', 'Количество'],
+            ['Финансовый',     ints[0]],
+            ['Управленческий',      ints[1]],
+            ['Хоз. деятельности',  ints[2]],
+            ['Специальный', ints[3]]
+            ]);
+
+            var options = {
+            title: 'Проведенные аудиты'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+            }
+      }
+      reader.onerror = function() {
+        console.log(reader.error);
+      }
+    })
+    
+  </script>
+
+<div id="piechart" style="height: 350px"></div>
+    
+<div class="container">
+
+    <!-- <div class="row">
+        <div class="col-sm-3">
+          <div class="card bg-light">
+            <div class="card-body">
+                <div class="docs">
+                    <h4>Финансовых аудитов <i class="fas fa-coins"></i></h4>
+                </div><br><br>
+                <div>
+                    {{D1.unit}}
+                </div>                            
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <div class="docs">
+                        <h4>Управленческих аудитов <i class="fas fa-coins"></i></h4>
+                    </div><br><br>
+                    <div>
+                      {{D2.unit}}
+                    </div>                            
+                </div>
+              </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <div class="docs">
+                        <h4>Аудитов хоз. деятельности <i class="fas fa-coins"></i></h4>
+                    </div><br><br>
+                    <div>
+                      {{D3.unit}}
+                    </div>                            
+                </div>
+              </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <div class="docs">
+                        <h4>Специальных аудитов <i class="fas fa-coins"></i></h4>
+                    </div><br><br>
+                    <div>
+                      {{D4.unit}}
+                    </div>                            
+                </div>
+              </div>
+          </div>
+    </div> -->
+<hr>
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="card bg-light">
+          <div class="card-body">
+              <div class="docs">
+                  <i class="fas fa-users"></i>
+              </div><br>
+              <div>
+                  Аудиторов<br>
+                  {{totalauditors}}
+              </div>                            
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+          <div class="card bg-light">
+              <div class="card-body">
+                  <div class="docs">
+                      <i class="fas fa-spinner"></i>
+                  </div><br>
+                  <div>
+                      Запросов<br>
+                     {{totalrequest}}
+                  </div>                            
+              </div>
+            </div>
+      </div>
+        <div class="col-sm-3">
+          <div class="card bg-light">
+              <div class="card-body">
+                  <div class="docs">
+                      <i class="fas fa-coins xyz"></i>
+                  </div><br>
+                  <div>
+                      Аудитов<br>
+                      {{totaldocsunit}}
+                  </div>                            
+              </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <div class="docs">
+                        <i class="far fa-check-circle"></i>
+                    </div><br>
+                    <div>
+                        Одобренных<br>
+                        {{totalapprovedrequest}}
+                    </div>                            
+                </div>
+              </div>
+          </div>
+    </div>
+</div>
+
+{% endblock content %}

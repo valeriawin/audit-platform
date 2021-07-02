@@ -1,0 +1,54 @@
+{% extends 'auditor/auditorbase.html' %}
+{% block content %}
+{% load widget_tweaks %}
+{%load static%}
+<br><br>
+<div class="container">
+    {% if requests %}
+    <H4 class="text-center">Docs Requested</H4><br>
+    {% if message %}
+   <h5 class="text-center" style="color: red;"> {{message}}</h5><br>
+{% else %}
+
+{% endif %}
+    <table class="table table-light table-hover table-bordered table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Тип аудита</th>
+                <th scope="col">Документов</th>
+                <th scope="col">Ссылка на документы</th>
+                <th scope="col">Комментарий</th>
+                <th scope="col">Дата</th>
+                <th class="text-right">Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in requests %}
+            <tr>
+                <td> {{t.client_id}}</td>
+                <td>{{t.docsgroup}}</td>
+                <td>{{t.client_num}}</td>
+                <td><a href={{t.audit_file}}>ссылка</a></td>
+                <td>{{t.reason}}</td>
+                <td>{{t.date}}</td>
+                
+                <td class="text-right">
+                   
+                    <button class="btn btn-primary badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="{% url 'update-approve-status' t.id  %}">Одобрить</a> </button>
+                    <button class="btn btn-danger badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="{% url 'update-reject-status' t.id  %}">Отклонить</a> </button>
+                    
+                </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    
+{% else %}
+<h5>Нет текущих запросов !</h5>
+{% endif %}
+
+</div>
+
+{% endblock content %}

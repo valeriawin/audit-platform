@@ -1,0 +1,91 @@
+{% extends 'docs/adminbase.html' %}
+{% block content %}
+{% load widget_tweaks %}
+<style>
+            .xyz{
+      display: table;
+      margin-right: auto;
+      margin-left: auto;
+            }
+</style>
+<br><br>
+<div class="container">
+
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="card bg-light">
+          <div class="card-body">
+              <div class="docs">
+                  <h4>Финансовых аудитов <i class="fas fa-coins"></i></h4>
+              </div><br><br>
+              <div>
+                  {{D1.unit}}
+              </div>                            
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+          <div class="card bg-light">
+              <div class="card-body">
+                  <div class="docs">
+                      <h4>Управленческих аудитов <i class="fas fa-coins"></i></h4>
+                  </div><br><br>
+                  <div>
+                    {{D2.unit}}
+                  </div>                            
+              </div>
+            </div>
+      </div>
+      <div class="col-sm-3">
+          <div class="card bg-light">
+              <div class="card-body">
+                  <div class="docs">
+                      <h4>Аудитов хоз. деятельности <i class="fas fa-coins"></i></h4>
+                  </div><br><br>
+                  <div>
+                    {{D3.unit}}
+                  </div>                            
+              </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="card bg-light">
+              <div class="card-body">
+                  <div class="docs">
+                      <h4>Специальных аудитов <i class="fas fa-coins"></i></h4>
+                  </div><br><br>
+                  <div>
+                    {{D4.unit}}
+                  </div>                            
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+<hr>
+<br>
+<h3 class="text-center">Обновить количество</h3><br>
+<div class="xyz">
+
+    <form class="form-inline" method="POST">
+        {% csrf_token %}
+        <div class="form-group mx-sm-3 mb-6">
+
+            <select name="docsgroup" class="form-control">
+                <option disabled="disabled" selected="selected">Выберите тип</option>
+                <option>Финансовый</option>
+                <option>Управленческий</option>
+                <option>Хоз. деятельности</option>
+                <option>Специальный</option>
+            </select>
+          </div>
+        <div class="form-group mx-sm-3 mb-6">
+
+          <input type="number" class="form-control" name="unit" placeholder="Количество">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Обновить</button>
+      </form>
+</div>
+
+</div>
+{% endblock content %}

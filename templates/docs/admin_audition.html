@@ -1,0 +1,117 @@
+{% extends 'docs/adminbase.html' %}
+{% block content %}
+{% load widget_tweaks %}
+{%load static%}
+<head>
+    <style>
+        .label {
+     color: white;
+     padding: 8px;
+   }
+   
+   .success {background-color: #4CAF50;} /* Green */
+   .info {background-color: #2196F3;} /* Blue */
+   .warning {background-color: #ff9800;} /* Orange */
+   .danger {background-color: #f44336;} /* Red */
+   .other {background-color: #e7e7e7; color: black;} /* Gray */
+
+   .approve ul {
+    list-style: none; /*убираем маркеры списка*/
+    margin: 0; /*убираем отступы*/
+    padding-left: 0; /*убираем отступы*/
+    background:#2196F3; /*добавляем фон всему меню*/
+    }
+    .approve a {
+    text-decoration: none; /*убираем подчеркивание текста ссылок*/
+    background:#2196F3; /*добавляем фон к пункту меню*/
+    color:#fff; /*меняем цвет ссылок*/
+    padding:0px 12px 0px 12px; /*добавляем отступ*/
+    font-family: arial; /*меняем шрифт*/
+    display: block;
+    -moz-transition: all 0.3s 0.01s ease; /*делаем плавный переход*/
+    -o-transition: all 0.3s 0.01s ease;
+    -webkit-transition: all 0.3s 0.01s ease;
+
+    }
+    .approve a:hover {
+    background:#2196F3;/*добавляем эффект при наведении*/
+    }
+    .approve li {
+    float:left; /*Размещаем список горизонтально для реализации меню*/
+    position:relative;
+    }
+    /*Стили для скрытого выпадающего меню*/
+    .approve li > ul {
+    position:absolute;
+    top:21px;
+    display:none;
+    }
+    /*Делаем скрытую часть видимой*/
+    .approve li:hover >  ul {
+    display:block;
+    }
+    .approve li:hover >  ul > li {
+    float:left; /*Убираем горизонтальное позиционирование*/
+    width:24px;
+    }
+
+    </style>
+   </head>
+<br><br>
+<div class="container">
+    <H4 class="text-center">ИСТОРИЯ АУДИТОВ</H4><br>
+    <table class="table table-light table-hover table-bordered table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ФИО</th>
+                <th scope="col">ID запроса</th>
+                <th scope="col">Тип аудита</th>
+                <th scope="col">Оценка</th>
+                <th scope="col">Пояснение</th>
+                <th scope="col">Дата аудита</th>
+                <th class="text-right">Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in auditions %}
+            <tr>
+                <td> {{t.auditor}}</td>
+                <td> {{t.id_doc}}</td>
+                <td>{{t.docsgroup}}</td>
+                <td>{{t.unit}}</td>
+                <td> {{t.info}}</td>
+                <td>{{t.date}}</td>
+                {% if t.status == 'Pending' %}
+                <td class="text-right">
+                    <div class="approve">
+                        <ul><li>
+                        <a href="#">*оценить*</a>
+                        <ul>
+                        <li><a href="{% url 'approve-audition' t.id 1 %}"> 1 </a></li>
+                        <li><a href="{% url 'approve-audition' t.id 2 %}"> 2 </a></li>
+                        <li><a href="{% url 'approve-audition' t.id 3 %}"> 3 </a></li>
+                        <li><a href="{% url 'approve-audition' t.id 4 %}"> 4 </a></li>
+                        <li><a href="{% url 'approve-audition' t.id 5 %}"> 5 </a></li>
+                        <li><a href="{% url 'approve-audition' t.id 6 %}">6</a></li>
+                        <li><a href="{% url 'approve-audition' t.id 7 %}">7</a></li>
+                        <li><a href="{% url 'approve-audition' t.id 8 %}">8</a></li>
+                        <li><a href="{% url 'approve-audition' t.id 9 %}">9</a></li>
+                        <li><a href="{% url 'approve-audition' t.id 10 %}">10</a></li>
+                        </ul>
+                        </li></ul>
+                    </div>
+                </td>
+                {% elif  t.status == 'Approved' %}
+                <td><span class="label success" >Одобрено</span></td>
+                
+                {% else %}
+                <td><span class="label danger" >Понижено</span></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

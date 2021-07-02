@@ -1,0 +1,67 @@
+{% extends 'docs/adminbase.html' %}
+{% block content %}
+{% load widget_tweaks %}
+{%load static%}
+<head>
+ <style>
+     .label {
+  color: white;
+  padding: 8px;
+    }
+
+.success {background-color: #4CAF50;} /* Green */
+.info {background-color: #2196F3;} /* Blue */
+.warning {background-color: #ff9800;} /* Orange */
+.danger {background-color: #f44336;} /* Red */
+.other {background-color: #e7e7e7; color: black;} /* Gray */
+ </style>
+</head>
+<br><br>
+<div class="container">
+    <H4 class="text-center">ИСТОРИЯ ЗАПРОСОВ</H4><br>
+    {% if message %}
+   <h5 class="text-center" style="color: red;"> {{message}}</h5><br>
+{% else %}
+
+{% endif %}
+    <table class="table table-light table-hover table-bordered table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Компания</th>
+                <th scope="col">Тип аудита</th>
+                <th scope="col">Ссылка</th>
+                <th scope="col">Документов</th>
+                <th scope="col">Комментарий</th>
+                <th scope="col">Оценка аудитора</th>
+                <th scope="col">Дата</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Средняя оценка</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in requests %}
+            <tr>
+                <td> {{t.client_id}}</td>
+                <td>{{t.docsgroup}}</td>
+                <td><a href={{t.audit_file}}>ссылка</a></td>
+                <td>{{t.client_num}}</td>
+                <td>{{t.reason}}</td>
+                <td>тут оценка</td>
+                <td>{{t.date}}</td>
+                {% if t.status == 'Approved' %}
+                <td><span class="label success">Одобрено</span></td>
+                <td>{{t.unit}}</td>
+                {% else %}
+                <td><span class="label danger">Отклонено</span></td>
+                <td>0</td>
+                {% endif %}
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}
