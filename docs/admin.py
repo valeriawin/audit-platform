@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Stock, DocsRequest
 
+
 class CompanyAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': ['client_id']}),
