@@ -11,11 +11,13 @@ class AuditorUserForm(forms.ModelForm):
         'password': forms.PasswordInput()
         }
 
+        
 class AuditorForm(forms.ModelForm):
     class Meta:
         model=models.Auditor
         fields=['mobile','profile_pic','job']
 
+        
 class AuditionForm(forms.ModelForm):
     class Meta:
         model=models.DocsAudit
