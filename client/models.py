@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Client(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     profile_pic= models.ImageField(upload_to='profile_pic/Client/',null=True,blank=True)
@@ -16,5 +17,7 @@ class Client(models.Model):
     @property
     def get_instance(self):
         return self
+    
     def __str__(self):
         return self.user.first_name
+    
