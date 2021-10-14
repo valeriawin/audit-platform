@@ -1,5 +1,4 @@
 from django import forms
-
 from . import models
 
 
@@ -8,6 +7,7 @@ class DocsForm(forms.ModelForm):
         model=models.Stock
         fields=['docsgroup','unit']
 
+        
 class RequestForm(forms.ModelForm):
     class Meta:
         model=models.DocsRequest
