@@ -3,12 +3,15 @@ from client import models as pmodels
 from auditor import models as dmodels
 import os
 
+
 class Stock(models.Model):
     docsgroup=models.CharField(max_length=20)
     unit=models.PositiveIntegerField(default=0)
+    
     def __str__(self):
         return self.docsgroup
 
+    
 class DocsRequest(models.Model):
     request_by_client=models.ForeignKey(pmodels.Client,null=True,on_delete=models.CASCADE)
     request_by_auditor=models.ForeignKey(dmodels.Auditor,null=True,on_delete=models.CASCADE)
