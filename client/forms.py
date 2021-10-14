@@ -11,8 +11,8 @@ class ClientUserForm(forms.ModelForm):
         'password': forms.PasswordInput()
         }
 
+        
 class ClientForm(forms.ModelForm):
-    
     class Meta:
         model=models.Client
         fields=['company','address','job','mobile','profile_pic']
